@@ -1,5 +1,5 @@
 DermaDX
-A Mobile and Web Application to Identify Skin Diseases.
+A Mobile and Web Application to Identify Skin Diseases Using Machine Learning.
 
 Team Memebrs-
 
