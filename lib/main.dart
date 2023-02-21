@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
-import 'camera_page.dart';
+import '../All-pages/login_page.dart';
+import '../All-pages/camera_page.dart';
 void main() {
   runApp(const App());
 }
