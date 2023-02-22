@@ -50,11 +50,21 @@ class _CameraScreenState extends State<CameraScreen> {
       return Scaffold(
         body: Stack(
           children: [
-            CameraPreview(cameraController),
-            GestureDetector(
-              onTap: (){},
-              child: button(Icons.flip_camera_ios_outlined, Alignment.bottomLeft),
-            ),
+            const Text('Hello!',style: TextStyle(fontFamily: 'AirBnbBold',fontSize: 40,color: Color(0xFFFFFFFF)),),
+            // CameraPreview(cameraController),
+            ClipRect(
+                child: OverflowBox(
+                  alignment: Alignment.center,
+                  child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Container(
+                          width: 350,//width of camera preview
+                          height: 600 / cameraController.value.aspectRatio,//height of camera preview
+                          child: AspectRatio(
+                            aspectRatio: cameraController.value.aspectRatio,
+                            child: CameraPreview(cameraController),//Preview camera using camera controller
+                          ))),
+                )),
             GestureDetector(
               onTap: (){
                 cameraController.takePicture().then((XFile? file){
@@ -65,7 +75,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   }
                 });
               },
-              child: button(Icons.photo_camera_outlined, Alignment.bottomCenter),
+              child: button(Icons.photo_camera_outlined, Alignment.topRight),
             )
 
           ],
