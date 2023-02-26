@@ -57,7 +57,7 @@ class _CameraScreenState extends State<CameraScreen> {
             IconButton(onPressed: (){},
                 icon: const Icon(Icons.home_outlined,size: 35,color: Colors.black,))
           ],
-          leading: const ImageIcon(AssetImage('AssetImage("assets/blue_med.png"),'),size: 35,color: Colors.black,),
+          leading: const ImageIcon(AssetImage("assets/blue_med.png")),
         ),
         body: SafeArea(
           child: Stack(

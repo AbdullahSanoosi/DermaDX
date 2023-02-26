@@ -29,14 +29,16 @@ class _LoginPageState extends State<LoginPage> {
                     fontFamily: 'AirBnbMid',
                     fontSize: 16,color: Color(0xFFABA9A9)),
                 textAlign: TextAlign.center,),
-              const SizedBox(height: 300,),
+              const SizedBox(height: 50,),
+              const Image(image: AssetImage("assets/img.png"), height: 200, width: 200,),
+              const SizedBox(height: 100,),
               //Sign in button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60.0),
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Color(0xFF69BBE9),
+                    color: const Color(0xFF69BBE9),
                     borderRadius: BorderRadius.circular(9)
                   ),
                   child: const Center(
@@ -52,9 +54,9 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 90.0),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                      color: Color(0xFF194660),
+                      color: const Color(0xFF194660),
                       borderRadius: BorderRadius.circular(32)
                   ),
                   child: const Center(
@@ -65,7 +67,21 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 15),),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(height: 15,),
+            const Text('version 1.0',
+              style: TextStyle(
+                  fontFamily: 'AirBnbBold',
+                  fontSize: 16,color: Colors.black)),
+            const Text('Developed by chaos crew',
+                style: TextStyle(
+                    fontFamily: 'AirBnbBold',
+                    fontSize: 16,color: Color(0xFF666565))),
+            Expanded(child: Align(
+              alignment: const Alignment(1,0.4),
+              child: IconButton(onPressed: () {  }, icon: const Icon(Icons.security_update_warning_sharp),),
+            ))
+
               ],
             ),
           ),
