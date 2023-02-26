@@ -48,37 +48,57 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context){
     if(cameraController.value.isInitialized){
       return Scaffold(
-        body: Stack(
-          children: [
-            const Text('Hello!',style: TextStyle(fontFamily: 'AirBnbBold',fontSize: 40,color: Color(0xFFFFFFFF)),),
-            // CameraPreview(cameraController),
-            ClipRect(
-                child: OverflowBox(
-                  alignment: Alignment.center,
-                  child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Container(
-                          width: 350,//width of camera preview
-                          height: 600 / cameraController.value.aspectRatio,//height of camera preview
-                          child: AspectRatio(
-                            aspectRatio: cameraController.value.aspectRatio,
-                            child: CameraPreview(cameraController),//Preview camera using camera controller
-                          ))),
-                )),
-            GestureDetector(
-              onTap: (){
-                cameraController.takePicture().then((XFile? file){
-                  if(mounted){
-                    if(file != null){
-                      print("Picture saved to ${file.path}");
-                    }
-                  }
-                });
-              },
-              child: button(Icons.photo_camera_outlined, Alignment.topRight),
-            )
-
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          actions: <Widget>[
+            IconButton(onPressed: (){},
+                       icon: const Icon(Icons.arrow_circle_left_outlined,size: 35,color: Colors.black,)),
+            IconButton(onPressed: (){},
+                icon: const Icon(Icons.home_outlined,size: 35,color: Colors.black,))
           ],
+          leading: const ImageIcon(AssetImage("assets/blue_med.png")),
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              const Positioned(
+                left: 22,
+                top: 100,
+                width: 300,
+                height: 60,
+
+                child: Text('Scan Here',style: TextStyle(fontFamily: 'AirBnbBold',fontSize: 40,color: Colors.black,)),
+              ),
+              // CameraPreview(cameraController),
+              ClipRect(
+                  child: OverflowBox(
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Container(
+                            width: 350,//width of camera preview
+                            height: 600 / cameraController.value.aspectRatio,//height of camera preview
+                            child: AspectRatio(
+                              aspectRatio: cameraController.value.aspectRatio,
+                              child: CameraPreview(cameraController),//Preview camera using camera controller
+                            ))),
+                  )),
+              GestureDetector(
+                onTap: (){
+                  cameraController.takePicture().then((XFile? file){
+                    if(mounted){
+                      if(file != null){
+                        print("Picture saved to ${file.path}");
+                      }
+                    }
+                  });
+                },
+                child: button(Icons.photo_camera_outlined, Alignment.bottomCenter),
+              )
+
+            ],
+          ),
         ),
       );
     }else{
