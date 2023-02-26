@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'camera_page.dart';
+import 'About-us.dart';
+import 'login_page.dart';
 
+// ignore: camel_case_types
 class edit_profile extends StatefulWidget {
   const edit_profile({super.key});
 
@@ -10,6 +12,7 @@ class edit_profile extends StatefulWidget {
   _edit_profileState createState() => _edit_profileState();
 }
 
+// ignore: camel_case_types
 class _edit_profileState extends State<edit_profile> {
   bool showPassword = false;
   @override
@@ -26,42 +29,19 @@ class _edit_profileState extends State<edit_profile> {
           onPressed: () {},
         ),
         actions: [
-          // IconButton(
-          //   icon: const Icon(
-          //     Icons.settings,
-          //     color: Color.fromARGB(255, 76, 94, 175),
-          //   ),
-          //   onPressed: () {
-          //     Navigator.of(context).push(MaterialPageRoute(
-          //         builder: (BuildContext context) => const CameraScreen()));
-          //   },
-          // ),
           GestureDetector(
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 5),
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 4,
-                      color: Theme.of(context).scaffoldBackgroundColor),
-                  boxShadow: [
-                    BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                        color: Colors.black.withOpacity(0.1),
-                        offset: const Offset(0, 10))
-                  ],
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        "https://images.pexels.com/photos/3777622/pexels-photo-3777622.jpeg?auto=compress&cs=tinysrgb&w=600",
-                      ))),
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              // width: 100,
+              // height: 100,
+              child: Image.asset(
+                'assets/icon.jpg',
+                width: 40,
+              ),
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => const CameraScreen()));
+                  builder: (BuildContext context) => const Myaboutus()));
             },
           ),
         ],
@@ -93,7 +73,7 @@ class _edit_profileState extends State<edit_profile> {
                                 spreadRadius: 2,
                                 blurRadius: 10,
                                 color: Colors.black.withOpacity(0.1),
-                                offset: Offset(0, 10))
+                                offset: const Offset(0, 10))
                           ],
                           shape: BoxShape.circle,
                           image: const DecorationImage(
@@ -114,7 +94,7 @@ class _edit_profileState extends State<edit_profile> {
                               width: 4,
                               color: Theme.of(context).scaffoldBackgroundColor,
                             ),
-                            color: Color.fromARGB(255, 34, 57, 187),
+                            color: const Color.fromARGB(255, 34, 57, 187),
                           ),
                           child: const Icon(
                             Icons.edit,
@@ -134,43 +114,77 @@ class _edit_profileState extends State<edit_profile> {
               const SizedBox(
                 height: 35,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
-                  OutlinedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(255, 32, 45, 221)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0))),
-                      padding: const MaterialStatePropertyAll(
-                          EdgeInsets.symmetric(horizontal: 40)),
-                    ),
-                    onPressed: () {},
-                    child: const Center(
-                      child: Text("CANCEL",
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      OutlinedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color.fromARGB(255, 32, 45, 221)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0))),
+                          padding: const MaterialStatePropertyAll(
+                              EdgeInsets.symmetric(horizontal: 40)),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const edit_profile()));
+                        },
+                        child: const Center(
+                          child: Text("CANCEL",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  letterSpacing: 2.2,
+                                  color: Color.fromARGB(255, 236, 236, 236))),
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          padding: const MaterialStatePropertyAll(
+                              EdgeInsets.symmetric(horizontal: 60)),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color.fromARGB(255, 24, 58, 212)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0))),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          "SAVE",
                           style: TextStyle(
                               fontSize: 14,
                               letterSpacing: 2.2,
-                              color: Colors.black)),
-                    ),
+                              color: Color.fromARGB(255, 243, 240, 240)),
+                        ),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      padding: const MaterialStatePropertyAll(
-                          EdgeInsets.symmetric(horizontal: 40)),
-                      backgroundColor: MaterialStateProperty.all(
-                          Color.fromARGB(255, 24, 58, 212)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0))),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "SAVE",
-                      style: TextStyle(
-                          fontSize: 14,
-                          letterSpacing: 2.2,
-                          color: Color.fromARGB(255, 22, 22, 22)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 30),
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Color.fromARGB(255, 233, 54, 10)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0))),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const LoginPage()));
+                      },
+                      child: const Center(
+                        child: Text("SIGN OUT",
+                            style: TextStyle(
+                                fontSize: 16,
+                                letterSpacing: 2.2,
+                                color: Color.fromARGB(255, 236, 233, 233))),
+                      ),
                     ),
                   ),
                 ],
