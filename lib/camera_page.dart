@@ -131,10 +131,10 @@ class _CameraScreenState extends State<CameraScreen> {
                 alignment: const Alignment(0,0.6),
                 child: ElevatedButton.icon(
                   onPressed: () async {
-                    final files = await imageHelper.pickImage();
-                    if(files.isNotEmpty){
+                    final file = await imageHelper.pickImage();
+                    if(file.isNotEmpty){
                       final croppedFile = await imageHelper.crop(
-                          file: files,
+                          file: file,
                           cropStyle: CropStyle.rectangle,
                       );
                       if(croppedFile != null){
