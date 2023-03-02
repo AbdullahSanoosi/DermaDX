@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skin_detection/About-us.dart';
 import 'login_page.dart';
 import 'camera_page.dart';
-
+import 'edit_profile.dart';
 void main() {
   runApp(const App());
 }
