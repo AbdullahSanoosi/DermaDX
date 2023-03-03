@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'About-us.dart';
-import 'login_page.dart';
+import 'home_page.dart';
 
 // ignore: camel_case_types
 class edit_profile extends StatefulWidget {
