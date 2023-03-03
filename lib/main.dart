@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skin_detection/About-us.dart';
-import 'login_page.dart';
+import 'package:skin_detection/login_page.dart';
+import 'home_page.dart';
 import 'camera_page.dart';
 import 'edit_profile.dart';
 void main() {
@@ -12,9 +13,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: login(),
     );
   }
 }
