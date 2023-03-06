@@ -4,6 +4,7 @@ import 'package:skin_detection/login_page.dart';
 import 'home_page.dart';
 import 'camera_page.dart';
 import 'edit_profile.dart';
+import 'create_account_page.dart';
 void main() {
   runApp(const App());
 }
@@ -13,9 +14,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return  const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: login(),
+      home: LoginPage(),
     );
   }
 }
