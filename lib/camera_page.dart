@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:skin_detection/image_helper.dart';
+import 'dart:io';
+
+final imageHelper = ImageHelper();
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -8,8 +13,11 @@ class CameraScreen extends StatefulWidget {
   State<CameraScreen> createState() => _CameraScreenState();
 }
 
+
+
 class _CameraScreenState extends State<CameraScreen> {
 
+  File? _image;
   late List<CameraDescription> cameras;
   late CameraController cameraController;
 
@@ -19,7 +27,6 @@ class _CameraScreenState extends State<CameraScreen> {
     super.initState();
   }
 
-  @override
   void startCamera() async{
     cameras = await availableCameras();
     
@@ -53,30 +60,39 @@ class _CameraScreenState extends State<CameraScreen> {
           backgroundColor: Colors.white,
           actions: <Widget>[
             IconButton(onPressed: (){},
-                       icon: const Icon(Icons.arrow_circle_left_outlined,size: 35,color: Colors.black,)),
+                       icon: const Icon(Icons.arrow_circle_left_outlined,size: 30,color: Colors.black,)),
             IconButton(onPressed: (){},
-                icon: const Icon(Icons.home_outlined,size: 35,color: Colors.black,))
+                icon: const Icon(Icons.home_outlined,size: 30,color: Colors.black,))
           ],
-          leading: const ImageIcon(AssetImage("assets/blue_med.png")),
+          leading: IconButton(onPressed: (){},
+              icon: Image.asset("assets/blueem.png")),
         ),
         body: SafeArea(
           child: Stack(
             children: [
               const Positioned(
                 left: 22,
-                top: 100,
+                top: 30,
                 width: 300,
                 height: 60,
 
-                child: Text('Scan Here',style: TextStyle(fontFamily: 'AirBnbBold',fontSize: 40,color: Colors.black,)),
+                child: Text('Scan Here',style: TextStyle(fontFamily: 'AirBnbBold',fontSize: 30,color: Colors.black,)),
+              ),
+              const Positioned(
+                left: 22,
+                top: 80,
+                width: 300,
+                height: 30,
+
+                child: Text('*Please capture Or upload the skin area to diagnose',style: TextStyle(fontFamily: 'AirBnbBook',fontSize: 10,color: Color(0xFF625F5F),)),
               ),
               // CameraPreview(cameraController),
               ClipRect(
                   child: OverflowBox(
-                    alignment: Alignment.center,
+                    alignment: const Alignment(0,-0.4),
                     child: FittedBox(
                         fit: BoxFit.fitWidth,
-                        child: Container(
+                        child: SizedBox(
                             width: 350,//width of camera preview
                             height: 600 / cameraController.value.aspectRatio,//height of camera preview
                             child: AspectRatio(
@@ -94,9 +110,71 @@ class _CameraScreenState extends State<CameraScreen> {
                     }
                   });
                 },
-                child: button(Icons.photo_camera_outlined, Alignment.bottomCenter),
-              )
+                child: button(Icons.camera_alt, const Alignment(-0.08,0.45)),
+              ),
+              Container(
+                alignment: const Alignment(0,0.8),
+                child: ElevatedButton(
+                  onPressed: (){},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF141DEE),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(9),
+                    ),
+                    fixedSize: const Size(204, 55),
+                  ),
+                  child: const Text('Start Diagnosing',style: TextStyle(fontSize: 20,fontFamily: 'AirBnbBold'),),
 
+                ),
+              ),
+              Container(
+                alignment: const Alignment(0,0.6),
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    final file = await imageHelper.pickImage();
+                    if(file.isNotEmpty){
+                      final croppedFile = await imageHelper.crop(
+                          file: file,
+                          cropStyle: CropStyle.rectangle,
+                      );
+                      if(croppedFile != null){
+                        setState(() => _image = File(croppedFile.path));
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFF6F5F5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(9),
+                    ),
+                    fixedSize: const Size(300, 30),
+                  ),
+                  icon: const Icon(
+                    Icons.photo,
+                    size: 24.0,
+                    color: Color(0xFF3F3D3D),
+                  ),
+                  label: const Text('select from photos ',style: TextStyle(fontSize: 20,fontFamily: 'AirBnbBold',color: Color(0xFF3F3D3D)),),
+
+                ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 90.0,vertical: 300),
+              //   child: Container(
+              //     padding: const EdgeInsets.all(20),
+              //     decoration: BoxDecoration(
+              //         color: const Color(0xFF194660),
+              //         borderRadius: BorderRadius.circular(32)
+              //     ),
+              //     child: const Center(
+              //       child: Text('Create Account',
+              //         style: TextStyle(
+              //             color: Color(0xFFFFFFFF),
+              //             fontFamily: 'AirBnbExBold',
+              //             fontSize: 15),),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -117,7 +195,7 @@ class _CameraScreenState extends State<CameraScreen> {
         width: 50,
         decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.white,
+            color: Color(0xFF141DEE),
             boxShadow:[
               BoxShadow(
                 color: Colors.black26,
@@ -129,7 +207,7 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Center(
           child: Icon(
             icon,
-            color: Colors.black54,
+            color: Colors.white,
           ),
         ),
       ),

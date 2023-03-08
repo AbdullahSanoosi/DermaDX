@@ -37,6 +37,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   camera: ^0.9.7+1
+  image_picker: ^0.8.6+3
+  image_cropper: ^3.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -85,6 +87,9 @@ flutter:
    - family: AirBnbEXBold
      fonts:
        - asset: fonts/AirbnbCerealExtraBold.ttf
+   - family: AirBnbBook
+     fonts:
+       - asset: fonts/AirbnbCerealBook.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
