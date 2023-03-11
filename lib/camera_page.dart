@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:skin_detection/image_helper.dart';
 import 'dart:io';
+import 'package:skin_detection/Widgets/app_bar.dart';
 
 final imageHelper = ImageHelper();
 
@@ -55,17 +56,9 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context){
     if(cameraController.value.isInitialized){
       return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          actions: <Widget>[
-            IconButton(onPressed: (){},
-                       icon: const Icon(Icons.arrow_circle_left_outlined,size: 30,color: Colors.black,)),
-            IconButton(onPressed: (){},
-                icon: const Icon(Icons.home_outlined,size: 30,color: Colors.black,))
-          ],
-          leading: IconButton(onPressed: (){},
-              icon: Image.asset("assets/blueem.png")),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: appBar(),
         ),
         body: SafeArea(
           child: Stack(

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "150086721076",
+    "project_id": "drema-ac61a",
+    "storage_bucket": "drema-ac61a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150086721076:android:267d14e44d6f020766f461",
+        "android_client_info": {
+          "package_name": "com.dremaDx.skin_detection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150086721076-lkpbi8vf3aum8vorsdpc13ldeejsk4df.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4YuRxO0qc-okDirQP4bnYWqTTByrFaPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150086721076-lkpbi8vf3aum8vorsdpc13ldeejsk4df.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

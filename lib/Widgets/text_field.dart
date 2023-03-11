@@ -22,7 +22,7 @@ class mytextfield extends StatelessWidget {
       child: TextField(
         controller: Controller,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
           // labelText: 'Enter user Name or Email',
           enabledBorder: OutlineInputBorder(
             borderSide:
@@ -36,10 +36,10 @@ class mytextfield extends StatelessWidget {
           ),
           fillColor: Color(0xFFD9D9D9),
           filled: true,
-          hintText: hintText,
+          hintText: "    $hintText",
           hintStyle: const TextStyle(
-            color: Color(0xFFABA9A9),
-          ),
+            fontFamily: 'AirBnbBook',
+            fontSize: 20,color: Color(0xFFABA9A9)),
         ),
         maxLines: 1,
         obscureText: obscureText,
