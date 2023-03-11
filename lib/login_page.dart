@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:skin_detection/Widgets/app_bar.dart';
 import 'package:skin_detection/Widgets/button.dart';
 import 'package:skin_detection/Widgets/text_field.dart';
-
+import 'package:skin_detection/Widgets/app_bar.dart';
 // ignore: camel_case_types
 class login extends StatelessWidget {
   login({super.key});
@@ -13,6 +15,10 @@ class login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: appBar(),
+        ),
         body: SafeArea(
             child: Center(
           child: Column(children: [
@@ -59,7 +65,32 @@ class login extends StatelessWidget {
 
             //singin button
             const SizedBox(height: 25.0),
-            mybutton(),
+            mybutton(
+              buttonText: "Sign in",
+              onTap: (){},
+            ),
+            const SizedBox(height: 25.0),
+            RichText(text: TextSpan(
+              text: 'Don’t Have an account? ',
+              style: const TextStyle(
+                color: Color(0xFF989797),
+                fontFamily: 'AirBnbBoldMid',
+                fontSize: 15),
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Sign Up',
+                  style: const TextStyle(
+                      color: Color(0xFF1D26FA),
+                      fontFamily: 'AirBnbBoldMid',
+                      fontSize: 15),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      print('The button is clicked!');
+                    },
+
+                )
+              ]
+            ))
           ]),
         )));
   }
