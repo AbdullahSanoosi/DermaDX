@@ -1,15 +1,63 @@
-import 'package:flutter/gestures.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:skin_detection/Widgets/button.dart';
-import 'package:skin_detection/Widgets/text_field.dart';
 import 'package:skin_detection/Widgets/app_bar.dart';
 // ignore: camel_case_types
-class CreateAccount extends StatelessWidget {
-  CreateAccount({super.key});
+class CreateAccount extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  const CreateAccount({
+    Key? key,
+    required this.showLoginPage})
+      : super(key: key);
 
+  @override
+  State<CreateAccount> createState() => _CreateAccountState();
+}
+class _CreateAccountState extends State<CreateAccount>{
   //text editing controler
-  final username = TextEditingController();
-  final pass = TextEditingController();
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
+  final _password = TextEditingController();
+  final _email = TextEditingController();
+  final _repeatPassword = TextEditingController();
+
+  //Creates a user account
+  Future signUp() async {
+
+    //authenticating the user
+    if(passwordConfirmed()){
+      //create a user
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _email.text.trim(),
+          password: _password.text.trim());
+
+      //calling addUserDetails and adding user information
+      addUserDetails(
+          _firstName.text.trim(),
+          _lastName.text.trim(),
+          _email.text.trim()
+      );
+    }
+
+  }
+
+  //add user's details
+  Future addUserDetails(String firstName,String lastName, String email) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'first name' : firstName,
+      'last name' : lastName,
+      'email' : email,
+    });
+  }
+
+  //check if the password is confirmed
+  bool passwordConfirmed(){
+    if(_repeatPassword.text.trim() == _password.text.trim()){
+      return true;
+    }else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,76 +68,190 @@ class CreateAccount extends StatelessWidget {
         ),
         body: SafeArea(
             child: Center(
-              child: Column(children: [
-                const Icon(
-                  Icons.account_circle_outlined,
-                  color: Color(0xFFABA9A9),
-                  size: 300,
-                ),
-                //enter email
-                const SizedBox(height: 10),
+              child: SingleChildScrollView(
+                child: Column(children: [
+                  const Icon(
+                    Icons.account_circle_outlined,
+                    color: Color(0xFFABA9A9),
+                    size: 300,
+                  ),
+                  //enter email
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: SizedBox(
+                          width: 150,
+                          child: TextField(
 
-                mytextfield(
-                  Controller: username,
-                  hintText: "name",
-                  obscureText: false,
+                            controller: _firstName,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(13),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Color(0x6FDCD6D6)),
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+                              hintText: 'first name',
+                              hintStyle: const TextStyle(
+                                  fontFamily: 'AirBnbBook',
+                                  fontSize: 20,color: Color(0xFFABA9A9)),
+                              fillColor: Color(0xFFD9D9D9),
+                              filled: true,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: SizedBox(
+                          width: 150,
+                          child: TextField(
+                            controller: _lastName,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(13),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Color(0x6FDCD6D6)),
+                                  borderRadius: BorderRadius.circular(12)
+                              ),
+                              hintText: 'last name',
+                              hintStyle: const TextStyle(
+                                  fontFamily: 'AirBnbBook',
+                                  fontSize: 20,color: Color(0xFFABA9A9)),
+                              fillColor: Color(0xFFD9D9D9),
+                              filled: true,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]
+                  ),
 
-                ),
+                  const SizedBox(height: 10),
 
-                //enter pasword
-                const SizedBox(height: 10),
-                mytextfield(
-                  Controller: username,
-                  hintText: "email",
-                  obscureText: false,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: TextField(
+                      controller: _email,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(13),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0x6FDCD6D6)),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        hintText: 'email',
+                        hintStyle: const TextStyle(
+                            fontFamily: 'AirBnbBook',
+                            fontSize: 20,color: Color(0xFFABA9A9)),
+                        fillColor: Color(0xFFD9D9D9),
+                        filled: true,
+                      ),
+                    ),
+                  ),
 
-                ),
-                const SizedBox(height: 10),
-                mytextfield(
-                  Controller: pass,
-                  hintText: "enter password",
-                  obscureText: true,
-                ),
-                const SizedBox(height: 10),
-                mytextfield(
-                  Controller: pass,
-                  hintText: "repeat password",
-                  obscureText: true,
-                ),
+                  //enter pasword
+                  const SizedBox(height: 10),
 
-                //forgotpass
-                const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: TextField(
+                      controller: _password,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(13),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0x6FDCD6D6)),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        hintText: 'password',
+                        hintStyle: const TextStyle(
+                            fontFamily: 'AirBnbBook',
+                            fontSize: 20,color: Color(0xFFABA9A9)),
+                        fillColor: Color(0xFFD9D9D9),
+                        filled: true,
+                      ),
+                      obscureText: true,
+                    ),
+                  ),
 
-                //singin button
-                const SizedBox(height: 25.0),
-                mybutton(
-                  buttonText: "Create Account",
-                  onTap: (){},
-                ),
-                const SizedBox(height: 25.0),
-                RichText(text: TextSpan(
-                    text: 'Have An Account? ',
-                    style: const TextStyle(
-                        color: Color(0xFF989797),
-                        fontFamily: 'AirBnbBoldMid',
-                        fontSize: 15),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Sign In',
-                        style: const TextStyle(
-                            color: Color(0xFF1D26FA),
+                  const SizedBox(height: 10),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: TextField(
+                      controller: _repeatPassword,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(13),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0x6FDCD6D6)),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        hintText: 'repeat password',
+                        hintStyle: const TextStyle(
+                            fontFamily: 'AirBnbBook',
+                            fontSize: 20,color: Color(0xFFABA9A9)),
+                        fillColor: Color(0xFFD9D9D9),
+                        filled: true,
+                      ),
+                      obscureText: true,
+                    ),
+                  ),
+
+                  //forgotpass
+                  const SizedBox(height: 10),
+
+                  //singin button
+                  const SizedBox(height: 25.0),
+                  ElevatedButton(
+                      onPressed: (){
+                        signUp();
+                      },
+                      child: const Text("Create Account")),
+                  const SizedBox(height: 25.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Have an account? ',
+                        style: TextStyle(
+                            color: Color(0xFF989797),
                             fontFamily: 'AirBnbBoldMid',
                             fontSize: 15),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            print('The button is clicked!');
-                          },
-
-                      )
-                    ]
+                      ),
+                      GestureDetector(
+                          onTap: widget.showLoginPage,
+                          child: const Text(
+                            'Sign in',
+                            style: TextStyle(
+                                color: Color(0xFF1D26FA),
+                                fontFamily: 'AirBnbBoldMid',
+                                fontSize: 15),
+                          )
+                      ),
+                    ],
                   )
-                )
-              ]),
+                ]),
+              ),
             )));
   }
 }
