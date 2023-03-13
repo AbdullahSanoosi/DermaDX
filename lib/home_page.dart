@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:skin_detection/create_account_page.dart';
+import 'package:skin_detection/login_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -33,42 +36,56 @@ class _LoginPageState extends State<LoginPage> {
               const Image(image: AssetImage("assets/img.png"), height: 200, width: 200,),
               const SizedBox(height: 100,),
               //Sign in button
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF69BBE9),
-                    borderRadius: BorderRadius.circular(9)
-                  ),
-                  child: const Center(
-                    child: Text('Sign In',
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontFamily: 'AirBnbExBold',
-                          fontSize: 20),),
+              GestureDetector(
+                onTap: (){
+
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF69BBE9),
+                      borderRadius: BorderRadius.circular(9)
+                    ),
+                    child: const Center(
+                      child: Text('Sign In',
+                        style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontFamily: 'AirBnbExBold',
+                            fontSize: 20),),
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 30,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 90.0),
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      color: const Color(0xFF194660),
-                      borderRadius: BorderRadius.circular(32)
-                  ),
-                  child: const Center(
-                    child: Text('Create Account',
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontFamily: 'AirBnbExBold',
-                          fontSize: 15),),
+              GestureDetector(
+                onTap: (){;
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 90.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFF194660),
+                        borderRadius: BorderRadius.circular(32)
+                    ),
+                    child: const Center(
+                      child: Text('Create Account',
+                        style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontFamily: 'AirBnbExBold',
+                            fontSize: 15),),
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 15,),
+            ElevatedButton(
+                onPressed: (){
+                  FirebaseAuth.instance.signOut();
+                },
+                child: Text("Sign out")),
+
             const Text('version 1.0',
               style: TextStyle(
                   fontFamily: 'AirBnbBold',
@@ -77,10 +94,14 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(
                     fontFamily: 'AirBnbBold',
                     fontSize: 16,color: Color(0xFF666565))),
+
+
+
             Expanded(child: Align(
               alignment: const Alignment(1,0.4),
               child: IconButton(onPressed: () {  }, icon: const Icon(Icons.security_update_warning_sharp),),
-            ))
+            )),
+
 
               ],
             ),
