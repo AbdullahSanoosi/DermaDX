@@ -38,9 +38,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: appBar(),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: MyAppBar(),
       ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

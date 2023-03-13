@@ -23,12 +23,29 @@ class _LoginState extends State<login>{
   final _username = TextEditingController();
   final _password = TextEditingController();
 
+  Future signIn() async {
+
+    showDialog(context: context,
+        builder: (context){
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _username.text.trim(),
+        password: _password.text.trim()
+    );
+
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: appBar(),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: MyAppBar(),
         ),
         body: SafeArea(
             child: Center(
@@ -167,9 +184,5 @@ class _LoginState extends State<login>{
         )));
   }
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _username.text.trim(),
-        password: _password.text.trim());
-  }
+
 }

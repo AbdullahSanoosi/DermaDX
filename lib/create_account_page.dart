@@ -23,7 +23,6 @@ class _CreateAccountState extends State<CreateAccount>{
 
   //Creates a user account
   Future signUp() async {
-
     //authenticating the user
     if(passwordConfirmed()){
       //create a user
@@ -38,16 +37,17 @@ class _CreateAccountState extends State<CreateAccount>{
           _email.text.trim()
       );
     }
-
   }
+
 
   //add user's details
   Future addUserDetails(String firstName,String lastName, String email) async {
-    await FirebaseFirestore.instance.collection('users').add({
+    final json = {
       'first name' : firstName,
       'last name' : lastName,
       'email' : email,
-    });
+    };
+    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).set(json);
   }
 
   //check if the password is confirmed
@@ -62,9 +62,9 @@ class _CreateAccountState extends State<CreateAccount>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: appBar(),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: MyAppBar(),
         ),
         body: SafeArea(
             child: Center(

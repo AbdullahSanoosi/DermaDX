@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:skin_detection/create_account_page.dart';
+import 'package:skin_detection/edit_profile.dart';
 import 'package:skin_detection/login_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -38,7 +39,10 @@ class _LoginPageState extends State<LoginPage> {
               //Sign in button
               GestureDetector(
                 onTap: (){
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const edit_profile()),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 60.0),

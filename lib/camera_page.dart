@@ -56,9 +56,9 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context){
     if(cameraController.value.isInitialized){
       return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: appBar(),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: MyAppBar(),
         ),
         body: SafeArea(
           child: Stack(

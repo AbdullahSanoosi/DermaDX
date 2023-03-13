@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'About-us.dart';
@@ -15,6 +17,28 @@ class edit_profile extends StatefulWidget {
 // ignore: camel_case_types
 class _edit_profileState extends State<edit_profile> {
   bool showPassword = false;
+  
+  //Get the current user's data
+  final documentRef = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid);
+
+
+
+  //controllers
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
+
+  Future updateData() async {
+    documentRef.update({
+      'first name' : _firstName.text.trim(),
+      'last name' : _lastName.text.trim(),
+      'email' : _email.text.trim(),
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,19 +131,17 @@ class _edit_profileState extends State<edit_profile> {
               const SizedBox(
                 height: 35,
               ),
-              buildTextField("Full Name", "Buddhima Kaushalya", false),
-              buildTextField("E-mail", "w18992@westminster.ac.lk", false),
-              buildTextField("Password", "********", true),
+              buildTextField("First Name", "Buddhima", false,_firstName),
+              buildTextField("Last Name", "Kaushalya", false,_lastName),
+              buildTextField("E-mail", "w18992@westminster.ac.lk", false,_email),
+              buildTextField("Password", "********", true,_password),
               // buildTextField("Birthday", "01 April 1953", false),
-              const SizedBox(
-                height: 35,
-              ),
               Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      OutlinedButton(
+                      ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
                               const Color.fromARGB(255, 32, 45, 221)),
@@ -132,14 +154,14 @@ class _edit_profileState extends State<edit_profile> {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  const edit_profile()));
+                                  const LoginPage()));
                         },
                         child: const Center(
-                          child: Text("CANCEL",
+                          child: Text("Cancel",
                               style: TextStyle(
-                                  fontSize: 14,
-                                  letterSpacing: 2.2,
-                                  color: Color.fromARGB(255, 236, 236, 236))),
+                                  color: Colors.white,
+                                  fontFamily: 'AirBnbBoldMid',
+                                  fontSize: 15),),
                         ),
                       ),
                       ElevatedButton(
@@ -147,18 +169,18 @@ class _edit_profileState extends State<edit_profile> {
                           padding: const MaterialStatePropertyAll(
                               EdgeInsets.symmetric(horizontal: 60)),
                           backgroundColor: MaterialStateProperty.all(
-                              const Color.fromARGB(255, 24, 58, 212)),
+                              const Color(0xFF1D26FA)),
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0))),
                         ),
-                        onPressed: () {},
+                        onPressed: updateData,
                         child: const Text(
-                          "SAVE",
+                          "Save",
                           style: TextStyle(
-                              fontSize: 14,
-                              letterSpacing: 2.2,
-                              color: Color.fromARGB(255, 243, 240, 240)),
+                                  color: Colors.white,
+                                  fontFamily: 'AirBnbBoldMid',
+                                  fontSize: 15),
                         ),
                       ),
                     ],
@@ -181,9 +203,9 @@ class _edit_profileState extends State<edit_profile> {
                       child: const Center(
                         child: Text("SIGN OUT",
                             style: TextStyle(
-                                fontSize: 16,
-                                letterSpacing: 2.2,
-                                color: Color.fromARGB(255, 236, 233, 233))),
+                                color: Colors.white,
+                                fontFamily: 'AirBnbBoldMid',
+                                fontSize: 16),),
                       ),
                     ),
                   ),
@@ -197,10 +219,11 @@ class _edit_profileState extends State<edit_profile> {
   }
 
   Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField) {
+      String labelText, String placeholder, bool isPasswordTextField,TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
+        controller: controller,
         obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField
