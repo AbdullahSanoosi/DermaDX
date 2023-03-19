@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'About-us.dart';
+import 'camera_page.dart';
 import 'home_page.dart';
 
 // ignore: camel_case_types
@@ -12,9 +15,56 @@ class edit_profile extends StatefulWidget {
   _edit_profileState createState() => _edit_profileState();
 }
 
+// class UserManagement {
+//   storeNewUser(user, context) async {
+//     var firebaseUser = FirebaseAuth.instance.currentUser;
+//     FirebaseFirestore.instance
+//         .collection('users')
+//         .doc(firebaseUser?.uid)
+//         .set({'email': user.email, 'uid': user.uid})
+//         .then((value) => Navigator.push(
+//             context, MaterialPageRoute(builder: (context) => const CameraScreen())))
+//         .catchError((e) {
+//           print(e);
+//         });
+//   }
+// }
+
 // ignore: camel_case_types
 class _edit_profileState extends State<edit_profile> {
   bool showPassword = false;
+  final _name = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+
+  void main() {
+    // change string to print whatever you'd like!
+    print(_name.text);
+    print(_email.text);
+  }
+
+  Future storeNewUser() async {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser?.uid)
+        .set({
+          'name': _name.text,
+          'email': _email.text,
+          'Password': _password.text
+        })
+        .then((value) => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const CameraScreen())))
+        .catchError((e) {
+          print(e);
+        });
+  }
+
+  // Future adduser(String name, String email, String passweord) async {
+  //   // var firba = await FirebaseFirestore.instance.currentUser();
+  //   await FirebaseFirestore.instance.collection("user").doc();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,9 +157,10 @@ class _edit_profileState extends State<edit_profile> {
               const SizedBox(
                 height: 35,
               ),
-              buildTextField("Full Name", "Buddhima Kaushalya", false),
-              buildTextField("E-mail", "w18992@westminster.ac.lk", false),
-              buildTextField("Password", "********", true),
+              buildTextField("Full Name", "Buddhima Kaushalya", false, _name),
+              buildTextField(
+                  "E-mail", "w18992@westminster.ac.lk", false, _email),
+              buildTextField("Password", "********", true, _password),
               // buildTextField("Birthday", "01 April 1953", false),
               const SizedBox(
                 height: 35,
@@ -152,7 +203,10 @@ class _edit_profileState extends State<edit_profile> {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0))),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          storeNewUser();
+                          // main();
+                        },
                         child: const Text(
                           "SAVE",
                           style: TextStyle(
@@ -174,6 +228,7 @@ class _edit_profileState extends State<edit_profile> {
                             borderRadius: BorderRadius.circular(30.0))),
                       ),
                       onPressed: () {
+                        FirebaseAuth.instance.signOut();
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 const LoginPage()));
@@ -196,11 +251,12 @@ class _edit_profileState extends State<edit_profile> {
     );
   }
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField) {
+  Widget buildTextField(String labelText, String placeholder,
+      bool isPasswordTextField, TextEditingController cat) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
+        controller: cat,
         obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField
