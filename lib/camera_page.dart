@@ -14,51 +14,48 @@ class CameraScreen extends StatefulWidget {
   State<CameraScreen> createState() => _CameraScreenState();
 }
 
-
-
 class _CameraScreenState extends State<CameraScreen> {
-
   File? _image;
   late List<CameraDescription> cameras;
   late CameraController cameraController;
 
   @override
-  void initState(){
+  void initState() {
     startCamera();
     super.initState();
   }
 
-  void startCamera() async{
+  void startCamera() async {
     cameras = await availableCameras();
-    
+
     cameraController = CameraController(
       cameras[0],
       ResolutionPreset.high,
       enableAudio: false,
     );
-    await cameraController.initialize().then((value){
-      if(!mounted){
+    await cameraController.initialize().then((value) {
+      if (!mounted) {
         return;
       }
-      setState(() {});//to refresh the widget
+      setState(() {}); //to refresh the widget
     }).catchError((e) {
       print(e);
     });
   }
 
   @override
-  void dispose(){
+  void dispose() {
     cameraController.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context){
-    if(cameraController.value.isInitialized){
+  Widget build(BuildContext context) {
+    if (cameraController.value.isInitialized) {
       return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: appBar(),
+          child: appBar(context, true),
         ),
         body: SafeArea(
           child: Stack(
@@ -68,47 +65,59 @@ class _CameraScreenState extends State<CameraScreen> {
                 top: 30,
                 width: 300,
                 height: 60,
-
-                child: Text('Scan Here',style: TextStyle(fontFamily: 'AirBnbBold',fontSize: 30,color: Colors.black,)),
+                child: Text('Scan Here',
+                    style: TextStyle(
+                      fontFamily: 'AirBnbBold',
+                      fontSize: 30,
+                      color: Colors.black,
+                    )),
               ),
               const Positioned(
                 left: 22,
                 top: 80,
                 width: 300,
                 height: 30,
-
-                child: Text('*Please capture Or upload the skin area to diagnose',style: TextStyle(fontFamily: 'AirBnbBook',fontSize: 10,color: Color(0xFF625F5F),)),
+                child:
+                    Text('*Please capture Or upload the skin area to diagnose',
+                        style: TextStyle(
+                          fontFamily: 'AirBnbBook',
+                          fontSize: 10,
+                          color: Color(0xFF625F5F),
+                        )),
               ),
               // CameraPreview(cameraController),
               ClipRect(
                   child: OverflowBox(
-                    alignment: const Alignment(0,-0.4),
-                    child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: SizedBox(
-                            width: 350,//width of camera preview
-                            height: 600 / cameraController.value.aspectRatio,//height of camera preview
-                            child: AspectRatio(
-                              aspectRatio: cameraController.value.aspectRatio,
-                              child: CameraPreview(cameraController),//Preview camera using camera controller
-                            ))),
-                  )),
+                alignment: const Alignment(0, -0.4),
+                child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: SizedBox(
+                        width: 350, //width of camera preview
+                        height: 600 /
+                            cameraController
+                                .value.aspectRatio, //height of camera preview
+                        child: AspectRatio(
+                          aspectRatio: cameraController.value.aspectRatio,
+                          child: CameraPreview(
+                              cameraController), //Preview camera using camera controller
+                        ))),
+              )),
               GestureDetector(
-                onTap: (){
-                  cameraController.takePicture().then((XFile? file){
-                    if(mounted){
-                      if(file != null){
+                onTap: () {
+                  cameraController.takePicture().then((XFile? file) {
+                    if (mounted) {
+                      if (file != null) {
                         print("Picture saved to ${file.path}");
                       }
                     }
                   });
                 },
-                child: button(Icons.camera_alt, const Alignment(-0.08,0.45)),
+                child: button(Icons.camera_alt, const Alignment(-0.08, 0.45)),
               ),
               Container(
-                alignment: const Alignment(0,0.8),
+                alignment: const Alignment(0, 0.8),
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF141DEE),
                     shape: RoundedRectangleBorder(
@@ -116,21 +125,23 @@ class _CameraScreenState extends State<CameraScreen> {
                     ),
                     fixedSize: const Size(204, 55),
                   ),
-                  child: const Text('Start Diagnosing',style: TextStyle(fontSize: 20,fontFamily: 'AirBnbBold'),),
-
+                  child: const Text(
+                    'Start Diagnosing',
+                    style: TextStyle(fontSize: 20, fontFamily: 'AirBnbBold'),
+                  ),
                 ),
               ),
               Container(
-                alignment: const Alignment(0,0.6),
+                alignment: const Alignment(0, 0.6),
                 child: ElevatedButton.icon(
                   onPressed: () async {
                     final file = await imageHelper.pickImage();
-                    if(file.isNotEmpty){
+                    if (file.isNotEmpty) {
                       final croppedFile = await imageHelper.crop(
-                          file: file,
-                          cropStyle: CropStyle.rectangle,
+                        file: file,
+                        cropStyle: CropStyle.rectangle,
                       );
-                      if(croppedFile != null){
+                      if (croppedFile != null) {
                         setState(() => _image = File(croppedFile.path));
                       }
                     }
@@ -147,8 +158,13 @@ class _CameraScreenState extends State<CameraScreen> {
                     size: 24.0,
                     color: Color(0xFF3F3D3D),
                   ),
-                  label: const Text('select from photos ',style: TextStyle(fontSize: 20,fontFamily: 'AirBnbBold',color: Color(0xFF3F3D3D)),),
-
+                  label: const Text(
+                    'select from photos ',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'AirBnbBold',
+                        color: Color(0xFF3F3D3D)),
+                  ),
                 ),
               ),
               // Padding(
@@ -172,31 +188,28 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
         ),
       );
-    }else{
+    } else {
       return const SizedBox();
     }
   }
-  Widget button(IconData icon, Alignment alignment){
+
+  Widget button(IconData icon, Alignment alignment) {
     return Align(
       alignment: alignment,
       child: Container(
-        margin: const EdgeInsets.only(
-            left: 20,
-            bottom: 20
-        ),
+        margin: const EdgeInsets.only(left: 20, bottom: 20),
         height: 50,
         width: 50,
         decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Color(0xFF141DEE),
-            boxShadow:[
+            boxShadow: [
               BoxShadow(
                 color: Colors.black26,
                 offset: Offset(2, 2),
                 blurRadius: 10,
               )
-            ]
-        ),
+            ]),
         child: Center(
           child: Icon(
             icon,

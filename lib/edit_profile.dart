@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'About-us.dart';
+import 'Widgets/app_bar.dart';
 import 'camera_page.dart';
 import 'home_page.dart';
 
@@ -49,9 +50,9 @@ class _edit_profileState extends State<edit_profile> {
         .collection('users')
         .doc(firebaseUser?.uid)
         .set({
-          'name': _name.text,
-          'email': _email.text,
-          'Password': _password.text
+          'name': _name.text.trim(),
+          'email': _email.text.trim(),
+          'Password': _password.text.trim()
         })
         .then((value) => Navigator.push(context,
             MaterialPageRoute(builder: (context) => const CameraScreen())))
@@ -68,34 +69,38 @@ class _edit_profileState extends State<edit_profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color.fromARGB(255, 76, 91, 175),
-          ),
-          onPressed: () {},
-        ),
-        actions: [
-          GestureDetector(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              // width: 100,
-              // height: 100,
-              child: Image.asset(
-                'assets/icon.jpg',
-                width: 40,
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => const Myaboutus()));
-            },
-          ),
-        ],
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: appBar(context, false),
       ),
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      //   elevation: 1,
+      //   leading: IconButton(
+      //     icon: const Icon(
+      //       Icons.arrow_back,
+      //       color: Color.fromARGB(255, 76, 91, 175),
+      //     ),
+      //     onPressed: () {},
+      //   ),
+      //   actions: [
+      //     GestureDetector(
+      //       child: Container(
+      //         margin: const EdgeInsets.symmetric(horizontal: 10),
+      //         // width: 100,
+      //         // height: 100,
+      //         child: Image.asset(
+      //           'assets/icon.jpg',
+      //           width: 40,
+      //         ),
+      //       ),
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => const Myaboutus()));
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(left: 16, top: 25, right: 16),

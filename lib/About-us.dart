@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
 
+import 'Widgets/app_bar.dart';
+
 class Myaboutus extends StatelessWidget {
   const Myaboutus({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: appBar(context, false),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
           child: Center(
         child: Column(
           children: [
             //add icon
-            const SizedBox(height: 30.0),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image.asset(
-                      'assets/icon.jpg',
-                      width: 50,
-                    ),
-                  ],
-                )),
+            // const SizedBox(height: 30.0),
+            // Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.end,
+            //       children: [
+            //         Image.asset(
+            //           'assets/icon.jpg',
+            //           width: 50,
+            //         ),
+            //       ],
+            //     )),
             //add title
             const SizedBox(height: 30.0),
             const Text(
