@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:skin_detection/camera_page.dart';
 import 'package:skin_detection/create_account_page.dart';
 import 'package:skin_detection/edit_profile.dart';
 import 'package:skin_detection/login_page.dart';
@@ -53,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(9)
                     ),
                     child: const Center(
-                      child: Text('Sign In',
+                      child: Text('Edit profile',
                         style: TextStyle(
                             color: Color(0xFFFFFFFF),
                             fontFamily: 'AirBnbExBold',
@@ -64,7 +65,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 30,),
               GestureDetector(
-                onTap: (){;
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CameraScreen()),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 90.0),
@@ -75,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(32)
                     ),
                     child: const Center(
-                      child: Text('Create Account',
+                      child: Text('Scan now',
                         style: TextStyle(
                             color: Color(0xFFFFFFFF),
                             fontFamily: 'AirBnbExBold',
