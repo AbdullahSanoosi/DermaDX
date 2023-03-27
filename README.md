@@ -7,11 +7,9 @@ Team Memebrs-
 
 2. Induranga Kawishara 20200688
 
-3. Ashial Herath 20210354
+3. Gishya Mendis 20211198
 
-4. Gishya Mendis 20211198
-
-5. Abdullah Sanoosi 20210126
+4. Abdullah Sanoosi 20210126
 
 Skin diseases are considered to be one of the most common types of diseases that effect humans. Though many skin diseases are considered fatal, many of them have the ability to make a person who is diagnosed with a skin disease less attracive which is a bog problem for many of the people. On many occasions a person does not have the knowledge that he/she has been affected by a skin disease. This is due to the low number of skin diagnosis in the society, som people tend to ignore thse skin disease reasoning the high cost of meeting a dermaologists to determine of it a skin disease or not.
 
