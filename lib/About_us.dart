@@ -57,7 +57,7 @@ class Myaboutus extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
                 child: Text(
-                  'Abdulla Sanoosi(w1899294)\nBuddima Kawushalya(w1899294)\nGishya Mendis(189929)\nAshail Hearath(1899294)\nInduranga Kawishwara(1899298)',
+                  'Abdulla Sanoosi(w19128032)\nBuddima Kawushalya(w1899294)\nGishya Mendis(w1898900)\nAshail Hearath(w1912880)\nInduranga Kawishwara(w1913278)',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
