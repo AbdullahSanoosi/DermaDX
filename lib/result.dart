@@ -68,7 +68,7 @@ class result extends StatelessWidget {
                         )));
               },
               child: const Text(
-                "Recomandation",
+                "Dermatologists",
                 style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'AirBnbBoldMid',
