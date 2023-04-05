@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'About-us.dart';
+import 'Widgets/app_bar.dart';
 import 'home_page.dart';
 
 // ignore: camel_case_types
@@ -17,11 +18,11 @@ class edit_profile extends StatefulWidget {
 // ignore: camel_case_types
 class _edit_profileState extends State<edit_profile> {
   bool showPassword = false;
-  
+
   //Get the current user's data
-  final documentRef = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid);
-
-
+  final documentRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser?.uid);
 
   //controllers
   final _email = TextEditingController();
@@ -31,50 +32,53 @@ class _edit_profileState extends State<edit_profile> {
 
   Future updateData() async {
     documentRef.update({
-      'first name' : _firstName.text.trim(),
-      'last name' : _lastName.text.trim(),
-      'email' : _email.text.trim(),
+      'first name': _firstName.text.trim(),
+      'last name': _lastName.text.trim(),
+      'email': _email.text.trim(),
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color.fromARGB(255, 76, 91, 175),
-          ),
-          onPressed: () {},
-        ),
-        actions: [
-          GestureDetector(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              // width: 100,
-              // height: 100,
-              child: Image.asset(
-                'assets/icon.jpg',
-                width: 40,
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => const Myaboutus()));
-            },
-          ),
-        ],
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: MyAppBar(),
       ),
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      //   elevation: 1,
+      //   leading: IconButton(
+      //     icon: const Icon(
+      //       Icons.arrow_back,
+      //       color: Color.fromARGB(255, 76, 91, 175),
+      //     ),
+      //     onPressed: () {},
+      //   ),
+      //   actions: [
+      //     GestureDetector(
+      //       child: Container(
+      //         margin: const EdgeInsets.symmetric(horizontal: 10),
+      //         // width: 100,
+      //         // height: 100,
+      //         child: Image.asset(
+      //           'assets/icon.jpg',
+      //           width: 40,
+      //         ),
+      //       ),
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => const Myaboutus()));
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           child: ListView(
             children: [
+              const SizedBox(height: 15.0),
               const Text(
                 "Edit Profile",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
@@ -131,10 +135,11 @@ class _edit_profileState extends State<edit_profile> {
               const SizedBox(
                 height: 35,
               ),
-              buildTextField("First Name", "Buddhima", false,_firstName),
-              buildTextField("Last Name", "Kaushalya", false,_lastName),
-              buildTextField("E-mail", "w18992@westminster.ac.lk", false,_email),
-              buildTextField("Password", "********", true,_password),
+              buildTextField("First Name", "Buddhima", false, _firstName),
+              buildTextField("Last Name", "Kaushalya", false, _lastName),
+              buildTextField(
+                  "E-mail", "w18992@westminster.ac.lk", false, _email),
+              buildTextField("Password", "********", true, _password),
               // buildTextField("Birthday", "01 April 1953", false),
               Column(
                 children: [
@@ -157,11 +162,13 @@ class _edit_profileState extends State<edit_profile> {
                                   const LoginPage()));
                         },
                         child: const Center(
-                          child: Text("Cancel",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'AirBnbBoldMid',
-                                  fontSize: 15),),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'AirBnbBoldMid',
+                                fontSize: 15),
+                          ),
                         ),
                       ),
                       ElevatedButton(
@@ -178,9 +185,9 @@ class _edit_profileState extends State<edit_profile> {
                         child: const Text(
                           "Save",
                           style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'AirBnbBoldMid',
-                                  fontSize: 15),
+                              color: Colors.white,
+                              fontFamily: 'AirBnbBoldMid',
+                              fontSize: 15),
                         ),
                       ),
                     ],
@@ -201,11 +208,13 @@ class _edit_profileState extends State<edit_profile> {
                                 const LoginPage()));
                       },
                       child: const Center(
-                        child: Text("SIGN OUT",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'AirBnbBoldMid',
-                                fontSize: 16),),
+                        child: Text(
+                          "SIGN OUT",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'AirBnbBoldMid',
+                              fontSize: 16),
+                        ),
                       ),
                     ),
                   ),
@@ -218,8 +227,8 @@ class _edit_profileState extends State<edit_profile> {
     );
   }
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField,TextEditingController controller) {
+  Widget buildTextField(String labelText, String placeholder,
+      bool isPasswordTextField, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
