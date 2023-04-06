@@ -2,7 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+<<<<<<< Updated upstream
 import 'About-us.dart';
+=======
+import 'About_us.dart';
+import 'Widgets/app_bar.dart';
+>>>>>>> Stashed changes
 import 'home_page.dart';
 
 // ignore: camel_case_types

@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'package:skin_detection/About-us.dart';
+=======
+import 'package:skin_detection/About_us.dart';
+import 'package:skin_detection/Widgets/button.dart';
+>>>>>>> Stashed changes
 import 'package:skin_detection/auth/main_page.dart';
 import 'package:skin_detection/login_page.dart';
 import 'home_page.dart';
@@ -22,6 +27,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
+<<<<<<< Updated upstream
+=======
+      // home: result(skin: "Monkeypox"),
+>>>>>>> Stashed changes
       home: MainPage(),
       // home: StreamBuilder<User?>(
       //   stream: FirebaseAuth.instance.authStateChanges(),
