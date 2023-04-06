@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skin_detection/doctor_list.dart';
 
 import 'Widgets/app_bar.dart';
 
@@ -63,9 +64,7 @@ class result extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => const result(
-                          skin: 'Monkeypox',
-                        )));
+                    builder: (BuildContext context) =>  DoctorList()));
               },
               child: const Text(
                 "Dermatologists",

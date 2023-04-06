@@ -83,7 +83,7 @@ class ListElement extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 130,
                   top: 28,
                   child: Align(
@@ -91,8 +91,8 @@ class ListElement extends StatelessWidget {
                       width: 250,
                       height: 18,
                       child: Text(
-                        "${doctor.degree}",
-                        style: const TextStyle (
+                        "MBBS",
+                        style: TextStyle (
                           fontFamily: 'AirBnbBook',
                           fontSize: 15,
                           fontWeight: FontWeight.w700,

@@ -82,10 +82,10 @@ class DoctorProfile extends StatelessWidget {
                       ),
                       Container(
                         alignment: Alignment.topCenter,
-                        child: SizedBox(
+                        child: const SizedBox(
                           child: Text(
-                            "${doctor.degree}",
-                            style: const TextStyle (
+                            "MBBS",
+                            style: TextStyle (
                               fontFamily: 'AirBnbBook',
                               fontSize: 15,
                               color: Color(0xff1C25F3),

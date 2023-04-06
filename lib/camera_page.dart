@@ -4,6 +4,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:skin_detection/image_helper.dart';
 import 'dart:io';
 import 'package:skin_detection/Widgets/app_bar.dart';
+import 'package:skin_detection/result.dart';
+import 'doctor_list.dart';
 
 final imageHelper = ImageHelper();
 
@@ -108,7 +110,10 @@ class _CameraScreenState extends State<CameraScreen> {
               Container(
                 alignment: const Alignment(0,0.8),
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>  const result(skin: "Monkeypox")));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF141DEE),
                     shape: RoundedRectangleBorder(
@@ -134,6 +139,7 @@ class _CameraScreenState extends State<CameraScreen> {
                         setState(() => _image = File(croppedFile.path));
                       }
                     }
+
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFF6F5F5),
