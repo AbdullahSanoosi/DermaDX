@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:skin_detection/About_us.dart';
 import 'package:skin_detection/Widgets/button.dart';
 import 'package:skin_detection/auth/main_page.dart';
+import 'package:skin_detection/cameratestfile.dart';
 import 'package:skin_detection/doctor_list.dart';
 import 'package:skin_detection/login_page.dart';
 import 'package:skin_detection/result.dart';
@@ -29,17 +30,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // home: result(skin: "Monkeypox"),
       home: MainPage(),
-      // home: StreamBuilder<User?>(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: (context, snapshot) {
-      //     if(snapshot.hasData){
-      //       return const LoginPage(); //if user logged in
-      //     }else{
-      //       return login(); //if user logged out
-      //     }
-      //     return login();
-      //   },
-      // ),
+
     );
   }
 }

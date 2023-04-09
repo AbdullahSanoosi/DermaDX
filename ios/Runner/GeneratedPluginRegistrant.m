@@ -42,6 +42,12 @@
 @import image_picker_ios;
 #endif
 
+#if __has_include(<tflite/TflitePlugin.h>)
+#import <tflite/TflitePlugin.h>
+#else
+@import tflite;
+#endif
+
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
@@ -51,6 +57,7 @@
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTImageCropperPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImageCropperPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
+  [TflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"TflitePlugin"]];
 }
 
 @end

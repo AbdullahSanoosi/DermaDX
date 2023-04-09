@@ -5,6 +5,8 @@ import 'package:skin_detection/create_account_page.dart';
 import 'package:skin_detection/edit_profile.dart';
 import 'package:skin_detection/login_page.dart';
 
+import 'cameratestfile.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -68,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const CameraScreen()),
+                    MaterialPageRoute(builder: (context) => const CameraScreenTest()),
                   );
                 },
                 child: Padding(

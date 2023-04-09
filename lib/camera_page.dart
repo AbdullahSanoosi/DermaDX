@@ -24,6 +24,7 @@ class _CameraScreenState extends State<CameraScreen> {
   late List<CameraDescription> cameras;
   late CameraController cameraController;
 
+
   @override
   void initState(){
     startCamera();
@@ -32,7 +33,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   void startCamera() async{
     cameras = await availableCameras();
-    
+
     cameraController = CameraController(
       cameras[0],
       ResolutionPreset.high,
@@ -92,7 +93,7 @@ class _CameraScreenState extends State<CameraScreen> {
                             height: 600 / cameraController.value.aspectRatio,//height of camera preview
                             child: AspectRatio(
                               aspectRatio: cameraController.value.aspectRatio,
-                              child: CameraPreview(cameraController),//Preview camera using camera controller
+                              child:  CameraPreview(cameraController),//Preview camera using camera controller
                             ))),
                   )),
               GestureDetector(
@@ -112,7 +113,7 @@ class _CameraScreenState extends State<CameraScreen> {
                 child: ElevatedButton(
                   onPressed: (){
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>  const result(skin: "Monkeypox")));
+                        builder: (BuildContext context) =>  const result(skin: "Acne")));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF141DEE),
